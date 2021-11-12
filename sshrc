@@ -1,7 +1,7 @@
 #!/bin/bash
 
 shell_pid=$(cat /proc/$PPID/stat | awk '{ print $4 }')
-uniqpeers=$(ss | grep ssh | awk '{ print $6 }' | grep -v 10.51.37.)
+uniqpeers=$(ss | grep ssh | awk '{ print $6 }' | grep -v 10.51.00.)
 non_int_check=$(strings /proc/$shell_pid/cmdline | grep notty)
 
 if [ -n "$non_int_check" ]; then
