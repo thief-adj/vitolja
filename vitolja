@@ -1,0 +1,22 @@
+#!/bin/bash
+discbin='/home/blueteam/discbin/discbin'
+
+sus_shell_pid=$1
+interactive_shell=$2
+
+if [ "$interactive_shell" -eq 1 ]; then
+        while [[ -z "$(ausearch -pp $sus_shell_pid | grep SYSCALL.*clear_console | grep -v grep)" ]]
+        do
+                sleep 0.1
+        done
+        sesh_log="$(ausearch -pp $sus_shell_pid | grep EXECVE | cut -d ' ' -f 4- | sed 's/"//g' | sed 's/a.=//g')"
+else
+        while [[ -z "$(ausearch -p $sus_shell_pid)" ]]
+        do
+                sleep 0.1
+        done
+        sesh_log="$(ausearch -p $sus_shell_pid | grep EXECVE | cut -d ' ' -f 4- | sed 's/"//g' | sed 's/a.=//g')"
+        sesh_log="$(echo $sesh_log | awk '{ print $3}' | xxd -r -p)"
+fi
+
+echo "$sesh_log" | $discbin 'https://discord.com/api/webhooks/'
