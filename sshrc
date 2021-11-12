@@ -6,10 +6,10 @@ non_int_check=$(strings /proc/$shell_pid/cmdline | grep notty)
 
 if [ -n "$non_int_check" ]; then
         if [ -n "$uniqpeers" ]; then
-                nohup /home/blueteam/vitolja2 $shell_pid 0 >/dev/null 2>&1 &
+                nohup /home/blueteam/vitolja $shell_pid 0 >/dev/null 2>&1 &
         fi
 else
         if [ -n "$uniqpeers" ]; then
-                nohup /home/blueteam/vitolja2 $shell_pid 1 >/dev/null 2>&1 &
+                nohup /home/blueteam/vitolja $shell_pid 1 >/dev/null 2>&1 &
         fi
 fi
