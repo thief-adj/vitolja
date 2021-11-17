@@ -1,4 +1,3 @@
-
 #!/bin/bash
 uniqpeers=$(ss | grep ssh | awk '{ print $6 }' | grep -v 10.51.37.)
 uniqip=$(echo "$uniqpeers" | sed s/:.*//g)
@@ -8,13 +7,13 @@ non_int_check=$(strings /proc/$shell_pid/cmdline | grep notty)
 
 
 if [ -n "$non_int_check" ]; then
-        if [ -n "$uniqpeers" ]; then
-                echo Suspicious SSH login detected on $(hostname) from $uniqpeers. | /home/blueteam/discbin/discbin https://discord.com/api/webhooks/901254750065020928/whnNtNdTjSYFx9URDWvWIxW9NfIpzOkUx41wGTpCBr-Vr5dnbrCLOWMICKKIS1uhaiZZ
-                nohup /home/blueteam/vitolja $shell_pid 0 >/dev/null 2>&1 &
-        fi
+	if [ -n "$uniqpeers" ]; then
+	        echo Suspicious SSH login detected on $(hostname) from $uniqpeers. | /home/blueteam/discbin/discbin 'https://discord.com/api/webhooks/897296110954115102/DQ1TFUvtbxJ6vdPD--hlgLp--pFT7u5aIOItaYkZuH-jjmAKdMEJCc2Hi3o_EMJto26m' >/dev/null 2>&1 &
+		nohup /home/blueteam/vitolja $shell_pid 0 >/dev/null 2>&1 &
+	fi
 else
-        if [ -n "$uniqpeers" ]; then
-                echo Suspicious SSH login detected on $(hostname) from $uniqpeers. | /home/blueteam/discbin/discbin https://discord.com/api/webhooks/901254750065020928/whnNtNdTjSYFx9URDWvWIxW9NfIpzOkUx41wGTpCBr-Vr5dnbrCLOWMICKKIS1uhaiZZ
-                nohup /home/blueteam/vitolja $shell_pid 1 >/dev/null 2>&1 &
-        fi
+	if [ -n "$uniqpeers" ]; then
+        	echo Suspicious SSH login detected on $(hostname) from $uniqpeers. | /home/blueteam/discbin/discbin 'https://discord.com/api/webhooks/897296110954115102/DQ1TFUvtbxJ6vdPD--hlgLp--pFT7u5aIOItaYkZuH-jjmAKdMEJCc2Hi3o_EMJto26m' >/dev/null 2>&1 &
+		nohup /home/blueteam/vitolja $shell_pid 1 >/dev/null 2>&1 &
+	fi
 fi
